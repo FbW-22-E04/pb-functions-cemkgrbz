@@ -180,15 +180,35 @@ function isPrime(num) {
 }
 console.log(isPrime(12))
 
-//13 (in progress)
+//13
 
-// function emailAddressCheck (x) {
-//     if (x.match('@') && x.match('.')){
-//         console.log(true)
-//     }
-//     else if (x.startsWith('@') || x.endsWith('@') || x.startsWith('.') || x.endsWith('.') || x.includes('@.') || x.includes('.@') || x.includes('..')) {
-//         console.log(false)
-//     }
-// }
+function emailAddressCheck (email) {
+        // The string must contain exactly one "@" character
+    if (email.indexOf('@') !== email.lastIndexOf('@') || 
+        // there is at least one 
+        email.indexOf('.') === -1 ||
+        //  The "." and the "@" must be in the appropriate places
+        // alkis.email@email.com
+        email.lastIndexOf('.') < email.indexOf('@') ||
+        //  neither "." nor "@" can be the last character
+        email[email.length - 1] === '.' ||
+        email[email.length - 1] === '@' ||
+        //  "." can neither be directly before, nor directly after, "@"
+        email.includes('.@') ||
+        email.includes('@.') ||
+        //  there cannot be consecutive "." characters
+        email.includes('..') ||
+        email[0] === '@'
+    ) {
+        return false;
+    }
 
-// emailAddressCheck('ysdf@.com')
+    return true
+}
+
+console.log(emailAddressCheck('email@email.com@'))
+console.log(emailAddressCheck('email@emailcom'))
+console.log(emailAddressCheck('email.@emailcom'))
+console.log(emailAddressCheck('email.@email.com.'))
+console.log(emailAddressCheck('email..@email.com'))
+console.log(emailAddressCheck('email@email.com'))
